@@ -1,6 +1,7 @@
 package com.example.demospring.service;
 
 import com.example.demospring.dao.IStudentDAO;
+import com.example.demospring.dto.StudentDTO;
 import com.example.demospring.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,9 @@ public class StudentService {
     public List<Student> getAllStudent() {
       return studentDAO.getAllStudent();
     }
+    public List<StudentDTO> getAllStudentsWithProcedure() {
+    return studentDAO.getAllStudentsWithProcedure();
+}
 
 
 

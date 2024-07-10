@@ -1,7 +1,9 @@
 package com.example.demospring.dao;
 
+import com.example.demospring.dto.StudentDTO;
 import com.example.demospring.entity.Student;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -47,4 +49,20 @@ public class StudentDAO implements IStudentDAO{
             this.entityManager.remove(student);
         }
     }
+
+    @Override
+    public List<Student> findByClassRoomId(Integer classId) {
+        String hql = "FROM Student S WHERE S.classRoom.id = :classId";
+        return this.entityManager.createQuery(hql, Student.class)
+                                 .setParameter("classId", classId)
+                                 .getResultList();
+    }
+
+  @Override
+    public List<StudentDTO> getAllStudentsWithProcedure() {
+        Query query = entityManager.createNativeQuery("CALL SP_GET_STUDENT_BY_CLASS()", StudentDTO.class);
+        return query.getResultList();
+    }
+
+
 }
